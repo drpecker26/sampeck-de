@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Sticky header height, so #anchors don't land under it. */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  @apply bg-ink-950 text-paper-muted font-body antialiased;
+}
+
+/* The deck's aurora wash: a few soft colour pools over near-black. */
+.aurora {
+  background-image:
+    radial-gradient(60rem 40rem at 12% 8%, rgba(61, 43, 168, 0.5), transparent 60%),
+    radial-gradient(50rem 34rem at 88% 22%, rgba(120, 58, 180, 0.42), transparent 62%),
+    radial-gradient(58rem 40rem at 70% 78%, rgba(38, 62, 178, 0.38), transparent 65%),
+    radial-gradient(46rem 32rem at 20% 95%, rgba(150, 52, 140, 0.3), transparent 62%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
