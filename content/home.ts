@@ -31,47 +31,77 @@ const home: Page = {
     {
       id: "select-games",
       title: "Select Games",
-      intro:
-        "The quickest way in — these are playable right now, in a browser or on Discord.",
+      columns: 2,
       entries: [
         {
-          title: "Kangaroo Court",
+          title: "Rawgs to Riches",
           blurb:
-            "Argue your case before a jury of your peers. Playable in the browser, no install.",
+            "My first game, originally made in VBA, before I joined a gaming company.",
           media: {
-            src: "/media/debate-court.png",
-            alt: "Kangaroo Court gameplay",
-            width: 1146,
-            height: 782,
-          },
-          links: [{ label: "Play", href: "https://kangaroo-court.sampeck.de" }],
-        },
-        {
-          title: "Color Block Heat Transfer Puzzle Game",
-          blurb: "Exactly what it says on the tin.",
-          media: {
-            src: "/media/color-block.gif",
-            alt: "Color Block Heat Transfer Puzzle Game gameplay",
-            width: 318,
-            height: 298,
-          },
-          links: [
-            { label: "Play", href: "https://simmer.io/@hammerstein/cbhtpg-01" },
-          ],
-        },
-        {
-          title: "Asteroid Crossfire",
-          blurb: "Physics-based RTS with factory/automation elements.",
-          media: {
-            src: "/media/asteroid-crossfire.gif",
-            alt: "Asteroid Crossfire gameplay",
-            width: 318,
-            height: 298,
+            src: "/media/rawgs-to-riches.png",
+            alt: "Rawgs to Riches market screen",
+            width: 1324,
+            height: 866,
           },
           links: [
             {
-              label: "Play",
-              href: "https://simmer.io/@hammerstein/asteroid-crossfire",
+              label: "How to Play",
+              href: "https://www.youtube.com/watch?v=-coTUxx3fHY",
+            },
+            { label: "Play", href: "https://rawgs-to-riches.fly.dev/" },
+          ],
+        },
+        {
+          title: "Kangaroo Court",
+          blurb:
+            "More a streamer's setup to coordinate courtroom drama with friends than a game.",
+          media: {
+            // Transcoded from an 8.2MB GIF — same loop, ~20x smaller.
+            src: "/media/kangaroo-court.mp4",
+            webm: "/media/kangaroo-court.webm",
+            poster: "/media/kangaroo-court.jpg",
+            alt: "Kangaroo Court streamer setup in action",
+            width: 952,
+            height: 514,
+          },
+          links: [
+            {
+              label: "Video Demo",
+              href: "https://www.youtube.com/watch?v=rMVPQ63hJak",
+            },
+          ],
+        },
+        {
+          title: "Factory Dice",
+          blurb:
+            "[Slice and Dice](https://play.google.com/store/apps/details?id=com.com.tann.dice&hl=en_US&pli=1) with a Factory/Supply chain theme",
+          media: {
+            src: "/media/factory-dice.gif",
+            alt: "Factory Dice prototype",
+            width: 270,
+            height: 528,
+          },
+          links: [
+            {
+              label: "Pitch",
+              href: `${PITCH_DOC}?tab=t.0#heading=h.l8vnqdw3gh0w`,
+            },
+          ],
+        },
+        {
+          title: "Friendship Garden",
+          blurb:
+            "A discord 'game' that tracks time spent with friends with plant progression.",
+          media: {
+            src: "/media/friendship-garden.png",
+            alt: "Friendship Garden plant progression in Discord",
+            width: 650,
+            height: 478,
+          },
+          links: [
+            {
+              label: "Pitch",
+              href: `${PITCH_DOC}?tab=t.0#heading=h.wobo5thixzdh`,
             },
           ],
         },

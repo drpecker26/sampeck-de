@@ -33,6 +33,21 @@ export default async function CoverLetterPage({ params }: Props) {
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-16 sm:py-24">
+      {letter.isDraft && (
+        <p
+          role="status"
+          className="mb-10 rounded-2xl border border-amber-400/40 bg-amber-400/10 px-5 py-4 text-sm leading-relaxed text-amber-200"
+        >
+          <strong className="font-semibold">Unfinished draft.</strong> Every
+          bracketed line below is a placeholder, not real copy. Replace them in{" "}
+          <code className="rounded bg-black/30 px-1.5 py-0.5">
+            content/coverLetters/{letter.slug}.ts
+          </code>{" "}
+          and delete <code className="rounded bg-black/30 px-1.5 py-0.5">isDraft</code>{" "}
+          before sending this link to anyone.
+        </p>
+      )}
+
       <p className="text-sm uppercase tracking-[0.2em] text-accent">
         {letter.company}
       </p>

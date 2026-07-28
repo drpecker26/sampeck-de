@@ -47,6 +47,33 @@ loading. To read them off a file:
 sips -g pixelWidth -g pixelHeight public/media/my-new-game.png
 ```
 
+Every image and GIF on the site is clickable — cards crop to a shared aspect
+ratio, and clicking opens the full uncropped frame in a lightbox.
+
+### Big GIFs
+
+Anything over ~2MB as a GIF should be video instead. It looks identical
+(autoplay, muted, looping, no controls) at a fraction of the size — the
+Kangaroo Court clip went from 8.2MB to 444KB.
+
+```bash
+ffmpeg -i input.gif -movflags +faststart -pix_fmt yuv420p \
+  -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -crf 26 public/media/name.mp4
+ffmpeg -i input.gif -c:v libvpx-vp9 -b:v 0 -crf 36 -row-mt 1 public/media/name.webm
+ffmpeg -i input.gif -vframes 1 -q:v 3 public/media/name.jpg   # poster frame
+```
+
+Then point `media` at the `.mp4`; the `.webm` and poster are optional but worth it:
+
+```ts
+media: {
+  src: "/media/name.mp4",
+  webm: "/media/name.webm",
+  poster: "/media/name.jpg",
+  alt: "...", width: 952, height: 514,
+}
+```
+
 ### A new section
 
 Add an object to the `sections` array in the same file:
@@ -65,10 +92,12 @@ Add an object to the `sections` array in the same file:
 
 ### A new cover letter
 
-1. Copy `content/coverLetters/founders-school.ts` to
-   `content/coverLetters/your-company.ts`.
+1. Copy `content/coverLetters/founders-school.ts` (the template — every string in
+   it is a bracketed placeholder) to `content/coverLetters/your-company.ts`.
 2. Edit the fields. `slug` becomes the URL, so keep it lowercase-with-hyphens.
 3. Register it in `content/coverLetters/index.ts`.
+4. Delete the `isDraft: true` line once the copy is real — it renders a loud
+   "unfinished draft" banner until you do.
 
 It's live at `/cl/your-company` on the next deploy.
 

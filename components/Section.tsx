@@ -1,6 +1,6 @@
-import Image from "next/image";
 import type { Section as SectionData } from "@/content/types";
 import EntryCard from "./EntryCard";
+import MediaThumb from "./MediaThumb";
 import RichText from "./RichText";
 
 const COLUMNS = {
@@ -38,18 +38,13 @@ export default function Section({ section }: { section: SectionData }) {
           (section.variant === "gallery" ? (
             <div className={`mt-10 grid gap-6 ${columns}`}>
               {section.entries.map((entry) => (
-                <figure key={entry.title} className="flex flex-col gap-3">
+                <figure key={entry.title} className="group flex flex-col gap-3">
                   {entry.media && (
-                    <div className="relative aspect-square overflow-hidden rounded-2xl border border-white/10">
-                      <Image
-                        src={entry.media.src}
-                        alt={entry.media.alt}
-                        width={entry.media.width}
-                        height={entry.media.height}
-                        className="h-full w-full object-cover"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                    </div>
+                    <MediaThumb
+                      media={entry.media}
+                      aspect="aspect-square"
+                      rounded="rounded-2xl border border-white/10"
+                    />
                   )}
                   <figcaption className="text-center text-paper-muted">
                     {entry.title}

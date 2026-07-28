@@ -9,12 +9,20 @@ export type Link = {
 };
 
 export type Media = {
-  /** Path under /public, e.g. "/media/endzone.gif". */
+  /**
+   * Path under /public, e.g. "/media/endzone.gif". A `.mp4` here renders as a
+   * silent looping video instead of an image — use that for anything over ~2MB
+   * as a GIF (see the README for the ffmpeg command).
+   */
   src: string;
   alt: string;
   /** Native pixel size — used to reserve layout space and avoid content shift. */
   width: number;
   height: number;
+  /** Optional smaller `.webm`, tried before the `.mp4`. Video only. */
+  webm?: string;
+  /** First-frame image shown before the video starts. Video only. */
+  poster?: string;
 };
 
 export type Entry = {

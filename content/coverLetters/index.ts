@@ -11,6 +11,11 @@ import foundersSchool from "./founders-school";
 
 export type CoverLetter = {
   slug: string;
+  /**
+   * Shows a loud "unfinished draft" banner on the page. Set it while the copy
+   * is still scaffolding, and delete the line once the letter is real.
+   */
+  isDraft?: boolean;
   /** Company or program you're writing to. */
   company: string;
   /** Role you're applying for. */
