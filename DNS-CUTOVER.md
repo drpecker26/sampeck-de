@@ -1,88 +1,73 @@
-# Prompt: point sampeck.de at the new Vercel site
+# DNS cutover — completed 2026-07-27
 
-Copy everything below the line into the other agent.
+`sampeck.de` now serves this site. Kept as a record of what the setup actually
+is, and of one wrong assumption worth not repeating.
 
----
+## Final state
 
-I need to repoint my domain `sampeck.de` away from a Gamma deck and onto a Vercel
-project. DNS is managed at Cloudflare. I can do browser steps; you tell me
-exactly what to click and verify each step from the command line.
+| Host | Record | Proxy |
+| --- | --- | --- |
+| `sampeck.de` | `CNAME → b1f8f73f12d73700.vercel-dns-017.com` | **DNS only (grey cloud)** |
+| `www.sampeck.de` | `CNAME → b1f8f73f12d73700.vercel-dns-017.com` | **DNS only (grey cloud)** |
+| `kangaroo-court.sampeck.de` | `CNAME → e23474fccbf2ca14.vercel-dns-017.com` | DNS only — *separate project, don't touch* |
 
-## Current state (already verified — don't re-litigate this)
+DNS is at Cloudflare. Hosting is Vercel project `sampeck-de` in team
+`rodd-hammersteins-projects`, auto-deploying from `main`.
 
-- `sampeck.de` nameservers are Cloudflare: `lennox.ns.cloudflare.com`,
-  `irena.ns.cloudflare.com`.
-- The apex is **Cloudflare-proxied** (resolves to `104.21.49.147` /
-  `172.67.163.172`) and a **Cloudflare Redirect Rule** returns
-  `302 -> https://gamma.app/public/Sam-Makes-Games-as1jrf4svrg1lj7?mode=doc`.
-  Same for `www`.
-- `kangaroo-court.sampeck.de` is already a working Vercel subdomain:
-  `CNAME -> e23474fccbf2ca14.vercel-dns-017.com`, **DNS-only (grey cloud)**.
-  Copy that pattern — it's the known-good precedent on this zone.
-- The new site is Vercel project **`sampeck-de`** in team
-  **`rodd-hammersteins-projects`**, live and healthy at
-  <https://sampeck-de.vercel.app>. It auto-deploys from
-  `github.com/drpecker26/sampeck-de` on push to `main`.
-- Both `sampeck.de` and `www.sampeck.de` are **already added to the Vercel
-  project and show `verified: true`**. No TXT verification record is needed.
-  The only thing left is DNS.
+Proxy must stay **off**. Vercel's certificate uses an `http-01` challenge that
+has to reach Vercel; orange-clouding breaks renewal.
 
-## What needs to happen, in this order
+Because Cloudflare flattens apex CNAMEs, `dig +short sampeck.de` returns Vercel
+*IPs* (`64.29.17.65` / `216.198.79.65`), not the hostname. Only `www` shows the
+hostname. That's expected, not a misconfiguration.
 
-**1. Delete (or disable) the Cloudflare Redirect Rule.**
-Cloudflare dashboard -> `sampeck.de` -> **Rules -> Redirect Rules** -> find the
-rule sending traffic to `gamma.app` -> delete or disable it.
+## The wrong assumption
 
-This is the step that silently breaks everything if skipped. A redirect rule
-runs at Cloudflare's edge *before* DNS resolution matters, so the site will keep
-302'ing to Gamma no matter how correct the DNS records are. If you change DNS
-and still get a 302, this rule is why.
+The original runbook said a **Cloudflare Redirect Rule** was sending traffic to
+the old Gamma deck, and that deleting it was step one. There was no such rule —
+the Rules page was empty.
 
-**2. Set the DNS records.** Cloudflare -> **DNS -> Records**. Remove the
-existing apex and `www` records that point at the Gamma redirect, then add:
+The 302 came from a **Squarespace origin** that Cloudflare was proxying to:
+apex was `A → 198.49.23.145`, `www` was `CNAME → ext-sq.squarespace.com`, both
+orange-clouded.
 
-| Type | Name | Target | Proxy |
-| --- | --- | --- | --- |
-| CNAME | `@` | `b1f8f73f12d73700.vercel-dns-017.com` | **DNS only (grey cloud)** |
-| CNAME | `www` | `b1f8f73f12d73700.vercel-dns-017.com` | **DNS only (grey cloud)** |
+The evidence was in headers collected on day one and read past:
 
-Those targets came from `vercel domains verify sampeck.de`, which also returned
-`disableProxy: true` — hence grey cloud, not orange. Cloudflare's CNAME
-flattening handles the apex CNAME fine.
+- `cf-cache-status: DYNAMIC` — proves an origin was contacted. An edge rule
+  terminates *before* origin and cannot emit this.
+- `set-cookie: crumb=…` and `x-contextid:` — both Squarespace-generated.
 
-**Grey cloud matters.** Orange-cloud proxying puts Cloudflare in front of
-Vercel, which double-proxies TLS and blocks Vercel from issuing its own
-certificate. Symptom is a cert error or a redirect loop. Match how
-`kangaroo-court` is already configured.
+**A proxied 302 doesn't tell you where the redirect came from. The headers do.**
+Check for origin fingerprints before hunting for a rule.
 
-**Do not touch** the `kangaroo-court` record — that's a separate live game.
+Consequence: rollback is DNS restoration, not re-enabling a rule. The full
+pre-change 12-record snapshot lives at `~/sampeck-de-dns-rollback.md` —
+deliberately **outside this repo**, because it contains MX and TXT records for
+email and this repo is public.
 
-## Verification
+## Two gotchas
 
-Run these; don't take the dashboard's word for it.
+- **Cloudflare won't change a record's Type on edit.** Converting the apex `A`
+  to a `CNAME` needs delete-then-add.
+- **Vercel didn't auto-issue the certificate**, even with DNS correct and both
+  domains `verified: true`. TLS reset at Client Hello (`SSL_ERROR_SYSCALL`)
+  while port 80 already served fine. It needed an explicit nudge —
+  `POST /v3/certs` with `{"cns":[...]}`, equivalent to the dashboard's domain
+  Refresh button.
+
+## Loose end
+
+Squarespace is still configured to serve this domain, and a `_domainconnect`
+CNAME remains. Harmless while DNS points at Vercel, but re-running a
+domain-connect flow there could rewrite records. Worth cancelling once you're
+sure you're done with Squarespace.
+
+## Verifying
+
+Local DNS caches the old NXDOMAIN for a while. To check the real thing:
 
 ```bash
-dig +short sampeck.de
-dig +short www.sampeck.de
-# expect the vercel-dns-017.com target, NOT 104.21.x / 172.67.x
-
-curl -sI https://sampeck.de/       | head -3   # want: HTTP/2 200
-curl -sI https://www.sampeck.de/   | head -3   # want: 200 or a 30x to apex
-curl -s  https://sampeck.de/ | grep -o '<title>[^<]*</title>'
-# want: <title>Sam Makes Games</title>
-
-curl -sI https://kangaroo-court.sampeck.de/ | head -3   # must still work
+IP=$(dig +short sampeck.de | grep -E '^[0-9]' | head -1)
+curl -sI --resolve "sampeck.de:443:$IP" https://sampeck.de/ | head -3
+curl -s  --resolve "sampeck.de:443:$IP" https://sampeck.de/ | grep -o '<title>[^<]*</title>'
 ```
-
-Success = apex returns **200**, not a 302 to gamma.app, and the title is
-"Sam Makes Games".
-
-Propagation is usually a couple of minutes on Cloudflare. Vercel issues the TLS
-cert automatically once DNS resolves to it; that can take a few extra minutes,
-and a cert error in that window is expected rather than a misconfiguration.
-
-## Rollback
-
-The Gamma deck stays live at its own URL throughout, so nothing is lost. To
-revert: re-enable the redirect rule. That alone restores the old behaviour
-regardless of DNS.
