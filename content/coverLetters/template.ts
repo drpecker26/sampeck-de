@@ -1,15 +1,18 @@
 import type { CoverLetter } from "./index";
 
 /**
- * TEMPLATE — live at /cl/founders-school.
+ * TEMPLATE — live at /cl/template.
  *
- * Every string below is scaffolding, not copy. Replace all of it before sending
- * the link anywhere. Copy this file to add a new application; the slug becomes
- * the URL, so keep it lowercase-with-hyphens.
+ * Every string below is scaffolding, not copy. Copy this file to start a real
+ * application; the slug becomes the URL, so keep it lowercase-with-hyphens.
+ *
+ * Pick slugs that don't advertise where you're applying. The URL is the one
+ * part visible before the page even loads, and links get forwarded —
+ * `/cl/tuesday-draft` is fine, `/cl/nintendo-senior-designer` is not.
  */
-const foundersSchool: CoverLetter = {
-  slug: "founders-school",
-  company: "Founders School",
+const template: CoverLetter = {
+  slug: "template",
+  company: "[Company name]",
   role: "[Role title goes here]",
 
   isDraft: true,
@@ -25,7 +28,8 @@ const foundersSchool: CoverLetter = {
   highlights: [
     {
       title: "[Strength #1]",
-      detail: "[One or two sentences of concrete evidence. Prefer shipped things over adjectives.]",
+      detail:
+        "[One or two sentences of concrete evidence. Prefer shipped things over adjectives.]",
     },
     {
       title: "[Strength #2]",
@@ -47,4 +51,4 @@ const foundersSchool: CoverLetter = {
   ],
 };
 
-export default foundersSchool;
+export default template;

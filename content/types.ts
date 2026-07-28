@@ -48,6 +48,11 @@ export type Section = {
   columns?: 2 | 3;
   /** Photo grid with captions instead of cards (used by Secret Dogs). */
   variant?: "cards" | "gallery";
+  /**
+   * Keep the section off the jump-link bar. Still on the page and still
+   * anchor-linkable — just not advertised at the top.
+   */
+  hideFromNav?: boolean;
 };
 
 export type Page = {

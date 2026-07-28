@@ -3,8 +3,8 @@ import { NextResponse, type NextRequest } from "next/server";
 /**
  * Cover-letter URL normalisation.
  *
- *   /?cl=founders_school  ->  /cl/founders-school
- *   /cl/founders_school   ->  /cl/founders-school
+ *   /?cl=my_slug  ->  /cl/my-slug
+ *   /cl/my_slug   ->  /cl/my-slug
  *
  * The canonical shape is /cl/<slug>. The `?cl=` form is supported because it's
  * the shape the old site used, and links already in the wild should keep working.

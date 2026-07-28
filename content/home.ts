@@ -36,12 +36,12 @@ const home: Page = {
         {
           title: "Rawgs to Riches",
           blurb:
-            "My first game, originally made in VBA, before I joined a gaming company.",
+            "My first game, originally made in VBA, before I joined a gaming company. Revived for $2.68 in Claude credits.",
           media: {
-            src: "/media/rawgs-to-riches.png",
-            alt: "Rawgs to Riches market screen",
-            width: 1324,
-            height: 866,
+            src: "/media/rawgs-to-riches.gif",
+            alt: "Rawgs to Riches gameplay",
+            width: 450,
+            height: 360,
           },
           links: [
             {
@@ -83,7 +83,7 @@ const home: Page = {
           },
           links: [
             {
-              label: "Pitch",
+              label: "Pitch (Request Access)",
               href: `${PITCH_DOC}?tab=t.0#heading=h.l8vnqdw3gh0w`,
             },
           ],
@@ -100,7 +100,7 @@ const home: Page = {
           },
           links: [
             {
-              label: "Pitch",
+              label: "Pitch (Request Access)",
               href: `${PITCH_DOC}?tab=t.0#heading=h.wobo5thixzdh`,
             },
           ],
@@ -177,7 +177,7 @@ const home: Page = {
             width: 1146,
             height: 782,
           },
-          links: [{ label: "Pitch", href: `${PITCH_DOC}#heading=h.7fdvu1cjcpv` }],
+          links: [{ label: "Pitch (Request Access)", href: `${PITCH_DOC}#heading=h.7fdvu1cjcpv` }],
         },
         {
           title: "Flirty Thirty",
@@ -188,7 +188,7 @@ const home: Page = {
             width: 1602,
             height: 678,
           },
-          links: [{ label: "Pitch", href: `${PITCH_DOC}#heading=h.4h8z7cjaajam` }],
+          links: [{ label: "Pitch (Request Access)", href: `${PITCH_DOC}#heading=h.4h8z7cjaajam` }],
         },
         {
           title: "Steampunk Gangs",
@@ -200,7 +200,7 @@ const home: Page = {
             width: 936,
             height: 620,
           },
-          links: [{ label: "Pitch", href: `${PITCH_DOC}#heading=h.xk08jzvb1tsi` }],
+          links: [{ label: "Pitch (Request Access)", href: `${PITCH_DOC}#heading=h.xk08jzvb1tsi` }],
         },
       ],
     },
@@ -272,7 +272,7 @@ const home: Page = {
             width: 1232,
             height: 1118,
           },
-          links: [{ label: "Pitch", href: `${PITCH_DOC}#heading=h.dbc0jnktcdub` }],
+          links: [{ label: "Pitch (Request Access)", href: `${PITCH_DOC}#heading=h.dbc0jnktcdub` }],
         },
         {
           title: "Blackjack RPG",
@@ -283,7 +283,7 @@ const home: Page = {
             width: 860,
             height: 596,
           },
-          links: [{ label: "Pitch", href: `${PITCH_DOC}#heading=h.ssobxia7kgog` }],
+          links: [{ label: "Pitch (Request Access)", href: `${PITCH_DOC}#heading=h.ssobxia7kgog` }],
         },
         {
           title: "Octopus Crafter",
@@ -295,7 +295,7 @@ const home: Page = {
             width: 990,
             height: 948,
           },
-          links: [{ label: "Pitch", href: `${PITCH_DOC}#heading=h.obivr8z1lyrw` }],
+          links: [{ label: "Pitch (Request Access)", href: `${PITCH_DOC}#heading=h.obivr8z1lyrw` }],
         },
         {
           title: "Mass Gathering",
@@ -307,7 +307,7 @@ const home: Page = {
             width: 740,
             height: 620,
           },
-          links: [{ label: "Pitch", href: `${PITCH_DOC}#heading=h.k6eu8mnrs6pr` }],
+          links: [{ label: "Pitch (Request Access)", href: `${PITCH_DOC}#heading=h.k6eu8mnrs6pr` }],
         },
       ],
     },
@@ -399,6 +399,7 @@ const home: Page = {
       outro:
         "([joke explainer](https://twitter.com/kniivila/status/872184989902876672))",
       variant: "gallery",
+      hideFromNav: true,
       entries: [
         {
           title: "Blep Dog (Benji)",

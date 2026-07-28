@@ -11,7 +11,7 @@ Needs Node 20.9+ (this machine defaults to Node 22 via nvm).
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
+npm run dev      # http://localhost:3000 (use --port 3100 if kangaroo-court has 3000)
 npm run build    # production build — run this before pushing
 ```
 
@@ -92,21 +92,24 @@ Add an object to the `sections` array in the same file:
 
 ### A new cover letter
 
-1. Copy `content/coverLetters/founders-school.ts` (the template — every string in
-   it is a bracketed placeholder) to `content/coverLetters/your-company.ts`.
+1. Copy `content/coverLetters/template.ts` (every string in it is a bracketed
+   placeholder) to `content/coverLetters/your-slug.ts`.
 2. Edit the fields. `slug` becomes the URL, so keep it lowercase-with-hyphens.
 3. Register it in `content/coverLetters/index.ts`.
 4. Delete the `isDraft: true` line once the copy is real — it renders a loud
    "unfinished draft" banner until you do.
 
-It's live at `/cl/your-company` on the next deploy.
+It's live at `/cl/your-slug` on the next deploy.
+
+Pick slugs that don't name the company — the URL is visible before the page
+loads, and links get forwarded.
 
 These pages are **unlisted, not private** — not linked from anywhere on the site,
 `noindex`'d, excluded from `robots.txt` and `sitemap.xml`. Anyone with the link
 can read it, so don't put anything in there you wouldn't want forwarded.
 
-`/?cl=your_company` also works (old URL shape) and redirects to the canonical
-`/cl/your-company`. Underscores are converted to hyphens automatically.
+`/?cl=your_slug` also works (old URL shape) and redirects to the canonical
+`/cl/your-slug`. Underscores are converted to hyphens automatically.
 
 ## Layout
 

@@ -1,10 +1,10 @@
 import type { Link } from "../types";
-import foundersSchool from "./founders-school";
+import template from "./template";
 
 /**
  * Unlisted, per-application cover letters served at /cl/<slug>.
  *
- * To add one: copy founders-school.ts, edit it, register it below. The page is
+ * To add one: copy template.ts, edit it, register it below. The page is
  * live at /cl/<slug> immediately, is not linked from anywhere on the site, and
  * is excluded from the sitemap and robots.txt.
  */
@@ -33,7 +33,7 @@ export type CoverLetter = {
 };
 
 export const coverLetters: Record<string, CoverLetter> = {
-  [foundersSchool.slug]: foundersSchool,
+  [template.slug]: template,
 };
 
 export function getCoverLetter(slug: string): CoverLetter | undefined {

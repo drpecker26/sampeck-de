@@ -2,12 +2,14 @@ import type { Section } from "@/content/types";
 
 /** Horizontal jump links so a long scroll is still skimmable. */
 export default function SectionNav({ sections }: { sections: Section[] }) {
-  if (sections.length < 2) return null;
+  // Secret Dogs opts out — a secret listed at the top isn't one.
+  const listed = sections.filter((section) => !section.hideFromNav);
+  if (listed.length < 2) return null;
 
   return (
     <nav aria-label="Page sections" className="-mx-1 overflow-x-auto pb-1 lg:overflow-visible">
       <ul className="flex w-max gap-2 px-1 lg:w-auto lg:flex-wrap">
-        {sections.map((section) => (
+        {listed.map((section) => (
           <li key={section.id}>
             <a
               href={`#${section.id}`}
