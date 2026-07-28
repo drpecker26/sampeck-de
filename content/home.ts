@@ -69,6 +69,7 @@ const home: Page = {
               label: "Video Demo",
               href: "https://www.youtube.com/watch?v=rMVPQ63hJak",
             },
+            { label: "Play", href: "https://kangaroo-court.sampeck.de/" },
           ],
         },
         {
