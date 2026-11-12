@@ -43,6 +43,7 @@ const home: Page = {
             width: 344,
             height: 572,
           },
+          links: [{ label: "Play", href: "https://how-will-i-die.fly.dev/" }],
         },
         {
           title: "Bayworks",
@@ -56,6 +57,7 @@ const home: Page = {
             width: 338,
             height: 542,
           },
+          links: [{ label: "Play", href: "https://bayworks-game.fly.dev/" }],
         },
         {
           title: "Rawgs to Riches",
