@@ -34,6 +34,30 @@ const home: Page = {
       columns: 2,
       entries: [
         {
+          title: "How Will I Die?",
+          blurb:
+            "AI predicts your death. A cinematic, one-tap simulation of the rest of your life — and what might change the ending.",
+          media: {
+            src: "/media/how-will-i-die.gif",
+            alt: "How Will I Die? gameplay",
+            width: 344,
+            height: 572,
+          },
+        },
+        {
+          title: "Bayworks",
+          blurb:
+            "An industrial economy strategy game on a metro map of the real Bay Area. Set your prices, out-trade the NPC factories, and build an empire.",
+          media: {
+            src: "/media/bayworks.mp4",
+            webm: "/media/bayworks.webm",
+            poster: "/media/bayworks.jpg",
+            alt: "Bayworks gameplay",
+            width: 338,
+            height: 542,
+          },
+        },
+        {
           title: "Rawgs to Riches",
           blurb:
             "My first game, originally made in VBA, before I joined a gaming company. Revived for $2.68 in Claude credits.",
