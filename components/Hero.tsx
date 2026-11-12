@@ -31,12 +31,22 @@ export default function Hero({ page }: { page: Page }) {
         aria-hidden
       />
 
-      <div className="px-6 py-24 sm:px-12 sm:py-32">
-        <h1 className="font-display text-5xl font-light tracking-tight text-paper sm:text-7xl">
+      <div
+        className={
+          page.compactHero
+            ? "px-6 py-6 sm:px-12 sm:py-8"
+            : "px-6 py-24 sm:px-12 sm:py-32"
+        }
+      >
+        <h1
+          className={`font-display font-light tracking-tight text-paper ${
+            page.compactHero ? "text-4xl sm:text-5xl" : "text-5xl sm:text-7xl"
+          }`}
+        >
           {page.heading}
         </h1>
 
-        <div className="mt-8 max-w-2xl space-y-4">
+        <div className={`space-y-4 ${page.compactHero ? "mt-3 max-w-3xl" : "mt-8 max-w-2xl"}`}>
           {page.lede.map((line) => (
             <p key={line} className="text-lg leading-relaxed text-paper-muted">
               <RichText text={line} />

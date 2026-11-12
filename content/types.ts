@@ -46,8 +46,14 @@ export type Section = {
   entries: Entry[];
   /** 3 is the deck's default; 2 reads better for very wordy entries. */
   columns?: 2 | 3;
-  /** Photo grid with captions instead of cards (used by Secret Dogs). */
-  variant?: "cards" | "gallery";
+  /**
+   * "cards" (default) is the grid. "gallery" is a photo grid with captions
+   * (Secret Dogs). "list" is a compact table: thumbnail left, title and
+   * one-line blurb right (Tools). "feature" is a spotlight band per entry with
+   * no visible heading: media flush left at full height, title, blurb and
+   * links right; blank lines in the blurb split paragraphs (Current Project).
+   */
+  variant?: "cards" | "gallery" | "list" | "feature";
   /**
    * Keep the section off the jump-link bar. Still on the page and still
    * anchor-linkable — just not advertised at the top.
@@ -62,5 +68,7 @@ export type Page = {
   /** Paragraphs under the hero heading. Supports [label](href). */
   lede: string[];
   heroImage?: Media;
+  /** Short header bar instead of the tall hero, so the first section shows above the fold. */
+  compactHero?: boolean;
   sections: Section[];
 };
